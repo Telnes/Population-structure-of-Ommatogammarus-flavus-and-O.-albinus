@@ -8,10 +8,8 @@ library(ape)
 #install.packages("pegas")
 library(pegas)
 
-setwd ("D:/Users/MD/pegas_network/COI checked/2025")
-
 ## read data
-Omm_pop <- read.dna("OmmPop_608_bp.fa", format = "fasta")
+Omm_pop <- read.dna("../Supplementary_Materials/File S4 OmmPop_608_bp.fa", format = "fasta")
 
 ## convert data to the necessary format
 OmmHaps <- haplotype(Omm_pop)

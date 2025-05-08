@@ -24,7 +24,7 @@ bat_xyz <- as.xyz(bat) %>%
 bat_xyz$Depth <- bat_xyz$Depth - 455
 
 
-coordinates <- read.xlsx("../Supplementary_Materials/Coordinates for omm pop_2025-04-10.xlsx")
+coordinates <- read.xlsx("../Supplementary_Materials/Supplementary_tables.xlsx", sheet = 1, startRow = 2)
 coordinates$lat <- as.numeric(sapply(X = coordinates$Coordinate, FUN = function(X) {unlist(strsplit(X, split = " "))[1]}))
 coordinates$lon <- as.numeric(sapply(X = coordinates$Coordinate, FUN = function(X) {unlist(strsplit(X, split = " "))[3]}))
 

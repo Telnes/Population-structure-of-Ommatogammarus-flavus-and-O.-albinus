@@ -9,7 +9,7 @@ library(ape)
 library(pegas)
 
 ## read data
-OmmLWS <- read.dna("Ofa_Oalb_LWS_aln_trim.fa", format = "fasta")
+OmmLWS <- read.dna("../Supplementary_Materials/File S5 Ofa_Oalb_LWS_aln_trim.fa", format = "fasta")
 
 
 ## convert data to the necessary format
