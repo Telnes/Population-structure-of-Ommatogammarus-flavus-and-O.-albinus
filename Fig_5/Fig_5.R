@@ -1,10 +1,7 @@
 library(ggplot2)
 library(openxlsx)
-library(reshape2)
-library(gridExtra)
-library(ggpubr)
-library(data.table)
 
+## read xlsx
 cr<-read.xlsx ("../Supplementary_Materials/Supplementary_tables.xlsx", sheet = "Table S5. Carotenoids", startRow = 2) #cols=c(1:3)
 
 cr$Species <- substr(cr$Species, 1, 9)
@@ -12,8 +9,6 @@ cr$Species <- factor(cr$Species, levels = c("O_flavus_", "O_albinus"))
 
 cr$Carotenoids_ppm <- cr$`Carotenoids,.ppm_corrected`
 cr$Depth
-
-library("ggplot2")
 
 Ofladat <- cr[cr$Species == "O_flavus_",]
 Ofla <-  ggplot(data = Ofladat, aes(x = factor(Depth),y = Carotenoids_ppm))+

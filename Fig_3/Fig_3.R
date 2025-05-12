@@ -1,11 +1,9 @@
-library(ape)
-
 ## Sources and libraries
 ## https://johnbhorne.wordpress.com/2016/09/15/still-making-haplotype-networks-the-old-way-how-to-do-it-in-r/
 ## also
 ## https://jimmyodonnell.wordpress.com/2014/06/16/legend-for-haplotype-networks-in-r/
 
-#install.packages("pegas")
+library(ape)
 library(pegas)
 
 ## read data

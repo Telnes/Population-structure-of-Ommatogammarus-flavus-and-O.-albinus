@@ -1,11 +1,9 @@
-library(ape)
-
 ## Sources and libraries
 ## https://johnbhorne.wordpress.com/2016/09/15/still-making-haplotype-networks-the-old-way-how-to-do-it-in-r/
 ## also
 ## https://jimmyodonnell.wordpress.com/2014/06/16/legend-for-haplotype-networks-in-r/
 
-#install.packages("pegas")
+library(ape)
 library(pegas)
 
 ## read data
@@ -32,8 +30,8 @@ good <- mydata[mydata$Freq == 1,]
 #rep("Slud_O_flavus",4), rep("Slud_O_albinus",3))
 
 names <- c(rep("Ayaya", 16), rep("Bay", 14), rep("BG", 21), 
-           #rep("BK",47), rep("Br",4), rep("Bug",7), rep("List",4), rep("Pos",2), 
-           #rep("Slud",8))
+           rep("BK",47), rep("Br",4), rep("Bug",7), rep("List",4), rep("Pos",2), 
+           rep("Slud",8))
 
 new.hap <- table(good$hap, names)
 good[order(good$hap), ]

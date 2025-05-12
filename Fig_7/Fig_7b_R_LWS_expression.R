@@ -1,18 +1,14 @@
-library(ggplot2)
-library(openxlsx)
-library(reshape2)
-library(gridExtra)
-library(ggpubr)
-library(data.table)
-setwd ("C:/Users/Simba/Documents/Популяции O_flavus_albinus/Carotenoides")
+library(openxlsx) ## read.xlsx
+library(ggplot2) ## plots (ggplot)
+library(coin) ## wilcox_test
 
-#g<-substr("abcdef", 2, 4)
-#Try_read_qPCR_data_Ommatogammarus_eyes_from_deff_depth
-es<-read.xlsx("qPCR.xlsx", sheet=2, cols=2:6)
+## read raw data
+es <- read.xlsx("../Supplementary_Materials/Supplementary_tables.xlsx", sheet=6, cols=2:6)
+
+## sample quality control: all Ct values for the reference gene below 30 cycles
 alldat <- es[es$Control < 30,] #all pass!
-#alldat$Group <- substr(alldat$Sample, 5, 5)
 
-ch <- ifelse(alldat$Exp > 30, 4, 19)
+## add `Species` column from Sample IDs
 alldat$Species <- substr(alldat$Sample, 1, 5)
 
 Ofladat <- alldat[alldat$Species == "O_fla",]
@@ -24,25 +20,11 @@ alldat$Species <- factor(alldat$Species, levels = c("O_fla", "O_alb"))
 alldat$group2 <- ifelse(alldat$"Depth"<300, "Shallow", "Deep") ##for plot2
 alldat$group2 <- factor(alldat$group2, levels = c("Shallow", "Deep"))
 
-library("ggplot2")
-
-Ofla <-  ggplot(data = Ofladat, aes(x=factor(Depth),y=deltaCt))+
-  geom_boxplot() + geom_point()
-  
-Ofla
-
-Oalbdat <- alldat[alldat$Species == "O_alb",]
-alldat$Depth
-
-library("ggplot2")
-
-Oalb <-  ggplot(data = Oalbdat, aes(x=factor(Depth),y=deltaCt))+
-  geom_boxplot() + geom_point() 
-Oalb
-
+## species names to label subpanels
 species <- c("O. flavus", "O. albinus")
 names(species) <- c("O_fla", "O_alb")
 
+## plot
 plot<-ggplot(data = alldat, aes(x=factor(Depth),y=deltaCt, fill=Species, col=Species))+
   geom_boxplot() + geom_point() + 
   facet_grid(. ~ Species, labeller = labeller(Species = species)) + 
@@ -54,17 +36,19 @@ plot<-ggplot(data = alldat, aes(x=factor(Depth),y=deltaCt, fill=Species, col=Spe
   expand_limits(y=5)
 plot
 
+## save plot to file
 ggsave("Opsins_square.svg", width = 7, height = 5)
 
+
+## plot combined data for each specise
 ggplot(data = alldat, aes(x=Species, y=deltaCt, fill=Species, col=Species))+
   geom_boxplot() + geom_point() +
-xlab("") + ylab("deltaCt") +
- 
+  xlab("") + ylab("deltaCt") +
   scale_fill_manual(values = c("orange", "beige")) +
   scale_color_manual(values = c("black", "red4")) +
   theme(legend.position="none")
 ggsave("Opsins_two_species.svg")
 
-library(coin)
+
 wilcox_test(alldat$deltaCt ~ alldat$Species)
 
