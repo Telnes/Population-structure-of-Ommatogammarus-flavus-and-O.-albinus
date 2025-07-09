@@ -2,9 +2,9 @@ library(ggplot2)
 library(openxlsx)
 
 ## read xlsx
-cr<-read.xlsx ("../Supplementary_Materials/Supplementary_tables.xlsx", sheet = "Table S5. Carotenoids", startRow = 2) #cols=c(1:3)
+cr<-read.xlsx ("../Supplementary_Materials/Supplementary_tables.xlsx", sheet = 4, startRow = 3) #cols=c(1:3)
 
-cr$Species <- substr(cr$Species, 1, 9)
+cr$Species <- substr(cr$Sample, 1, 9)
 cr$Species <- factor(cr$Species, levels = c("O_flavus_", "O_albinus"))
 
 cr$Carotenoids_ppm <- cr$`Carotenoids,.ppm_corrected`

@@ -3,10 +3,11 @@ library(ggplot2) ## plots (ggplot)
 library(coin) ## wilcox_test
 
 ## read raw data
-es <- read.xlsx("../Supplementary_Materials/Supplementary_tables.xlsx", sheet=6, cols=2:6)
+es <- read.xlsx("../Supplementary_Materials/Supplementary_tables.xlsx", sheet=4, startRow = 3)
 
 ## sample quality control: all Ct values for the reference gene below 30 cycles
 alldat <- es[es$Control < 30,] #all pass!
+alldat <- alldat[complete.cases(alldat$deltaCt), ]
 
 ## add `Species` column from Sample IDs
 alldat$Species <- substr(alldat$Sample, 1, 5)
